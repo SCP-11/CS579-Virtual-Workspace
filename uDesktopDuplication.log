@@ -1,0 +1,14 @@
+[uDD::Log][2022-04-04 16:40:29] Start
+[uDD::Log][2022-04-04 16:40:29] OS Version    : 10.0
+[uDD::Log][2022-04-04 16:40:29] Build Number  : 19043
+[uDD::Log][2022-04-04 16:40:29] Service Pack  : 
+[uDD::Log][2022-04-04 16:40:29] Graphics Card [0] : NVIDIA GeForce GTX 1060 6GB
+[uDD::Log][2022-04-04 16:40:29]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2022-04-04 16:40:29] Graphics Card [1] : Microsoft Basic Render Driver
+[uDD::Log][2022-04-04 16:40:29] Monitor::Initialized() =>
+[uDD::Log][2022-04-04 16:40:29]     ID    : 0
+[uDD::Log][2022-04-04 16:40:29]     Size  : (1680, 1050)
+[uDD::Log][2022-04-04 16:40:29]     DPI   : (90, 90)
+[uDD::Log][2022-04-04 16:40:29]     Rot   : Landscape
+[uDD::Log][2022-04-04 16:40:29] Duplicator::Initialize() => OK.
+[uDD::Log][2022-04-04 16:42:44] Stop
