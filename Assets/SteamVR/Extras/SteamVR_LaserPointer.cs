@@ -139,6 +139,7 @@ namespace Valve.VR.Extras
                 argsClick.distance = hit.distance;
                 argsClick.flags = 0;
                 argsClick.target = hit.transform;
+                argsClick.point = hit.point;
                 OnPointerClick(argsClick);
             }
 
@@ -162,6 +163,7 @@ namespace Valve.VR.Extras
         public uint flags;
         public float distance;
         public Transform target;
+        public Vector3 point;
     }
 
     public delegate void PointerEventHandler(object sender, PointerEventArgs e);
