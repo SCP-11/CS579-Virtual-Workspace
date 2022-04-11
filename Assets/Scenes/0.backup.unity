@@ -3440,32 +3440,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &986376385
-BoxCollider2D:
+--- !u!65 &986376385
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986376384}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.69031143, y: 0.46440697}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 83.31878, y: 59.559208}
-  m_EdgeRadius: 0
+  m_Size: {x: 84.89362, y: 61.36483, z: 1}
+  m_Center: {x: 0.09641647, y: 0.096420944, z: 0}
 --- !u!114 &986376386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3766,6 +3753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050055804}
   - component: {fileID: 1050055805}
+  - component: {fileID: 1050055806}
   m_Layer: 0
   m_Name: Module 7
   m_TagString: Untagged
@@ -3802,6 +3790,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885905258eda1de488976f7c088d2631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1050055806
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050055803}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1051624540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4746,6 +4747,24 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1699668701945995865, guid: 5ac85d7fcb7d6f444a7e4750864681a3, type: 3}
   m_PrefabInstance: {fileID: 1699668701132077595}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1421798958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421798953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03d761828d897743a4fc2643ffda743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 50
+  pointer: {fileID: 924572427519911524, guid: a8acf9c11479a0949a6baa550692e4f9, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 4
+  scale: 100
 --- !u!1 &1434106617
 GameObject:
   m_ObjectHideFlags: 0
@@ -5400,7 +5419,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558258691}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -7774,32 +7793,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1421798953}
---- !u!61 &1973512665
-BoxCollider2D:
+--- !u!65 &1973512665
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973512659}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.31519318, y: -0.1372881}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 83.53664, y: 60.82853}
-  m_EdgeRadius: 0
+  m_Size: {x: 85.03802, y: 61.108948, z: 0.9999995}
+  m_Center: {x: 0.017273426, y: 0.105422735, z: 0.00000023283064}
 --- !u!1 &1983135708
 GameObject:
   m_ObjectHideFlags: 0
@@ -7941,7 +7947,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024058526}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

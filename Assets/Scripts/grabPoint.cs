@@ -20,9 +20,14 @@ public class grabPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<XRDirectInteractor>() != null)
+        Debug.Log(other.transform.position - this.transform.parent.gameObject.transform.position);
+        if (other.GetComponent<XRDirectInteractor>() != null)
         {
+
+
+
             this.transform.localPosition = other.transform.position - this.transform.parent.gameObject.transform.position;
+
         }
     }
 
