@@ -32,11 +32,14 @@ public class Ray : MonoBehaviour
     private void FixedUpdate()
     {
         var leftHandedControllers = new List<UnityEngine.XR.InputDevice>();
-        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Left | UnityEngine.XR.InputDeviceCharacteristics.Controller;
+        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Right | UnityEngine.XR.InputDeviceCharacteristics.Controller;
         UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, leftHandedControllers);
 
         //Debug.Log(string.Format("Device name '{0}' has characteristics '{1}'", leftHandedControllers[0].name, leftHandedControllers[0].characteristics.ToString()));
-        leftHandedControllers[0].TryGetFeatureValue(CommonUsages.primary2DAxis, out joystick);
+        if (leftHandedControllers.Count != 0)
+        {
+            leftHandedControllers[0].TryGetFeatureValue(CommonUsages.primary2DAxis, out joystick);
+        }
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
@@ -45,6 +48,7 @@ public class Ray : MonoBehaviour
             distance = hit.distance;
             rayColor = Color.yellow;
             targetInstance.transform.position = hit.point;
+            target = hit.transform.gameObject;
             //Debug.Log("Did Hit");
         }
         else
@@ -52,12 +56,13 @@ public class Ray : MonoBehaviour
             distance = range;
             rayColor = Color.green;
             //Debug.Log("Did not Hit");
+            target = null;
             targetInstance.transform.position = this.transform.position + this.transform.forward * distance;
 
 
         }
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * distance, rayColor);
-        target = hit.transform.gameObject;
+
         if (target != null) 
         {
             if(joystick.y > 0.5)
@@ -72,5 +77,4 @@ public class Ray : MonoBehaviour
             }
         }
     }
-
 }

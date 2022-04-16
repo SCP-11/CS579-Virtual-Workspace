@@ -59,7 +59,7 @@ public class handKeyboard : MonoBehaviour
             }
             else
             {
-                Debug.Log(joystick.y);
+                //Debug.Log(joystick.y);
 
                 if (joystick.y > 0.8)
                 {

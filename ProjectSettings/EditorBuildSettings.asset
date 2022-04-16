@@ -6,9 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0.backup.unity
+    path: Assets/Scenes/TakaScene.unity
     guid: f0ce5e2e7546b1f4da52bc6afe25752f
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8f74a4c705cb2d94793b2b0ff17cbb81, type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 0a80c3e2f3b8738439c218f1cced19dc, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: a727925a15c312e489a259eac8c86012, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 81c7d6e21754b6841b8bf242d9af71ec, type: 2}
