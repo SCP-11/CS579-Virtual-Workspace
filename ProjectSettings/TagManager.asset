@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grab
+  - type1
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Trigger
   - Water
   - UI
   - Player

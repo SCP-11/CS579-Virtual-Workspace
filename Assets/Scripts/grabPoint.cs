@@ -8,7 +8,8 @@ public class grabPoint : MonoBehaviour
 {
     private GameObject leftHand;
     private GameObject rightHand;
-    private GameObject preParent;
+    public GameObject preParent;
+    public GameObject workSpacePrefab;
     private XRController handController;
     private float grip;
     private bool inside;
@@ -25,54 +26,74 @@ public class grabPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!inside)
+        if (rightHand != null)
         {
-            if (rightHand != null)
-            {
-                rightHand.GetComponent<XRController>().inputDevice.TryGetFeatureValue(CommonUsages.grip, out grip);
+            rightHand.GetComponent<XRController>().inputDevice.TryGetFeatureValue(CommonUsages.grip, out grip);
 
-                if (grip > 0.5)
+            if (grip > 0.5)
+            {
+                //preParent = this.transform.parent.gameObject;
+                this.transform.parent = rightHand.transform;
+
+            }
+            else
+            {
+                if (preParent != null)
                 {
-                    //preParent = this.transform.parent.gameObject;
-                    this.transform.parent = rightHand.transform;
+                    //Debug.Log("setting parent to " + preParent);
+                    this.transform.parent = preParent.transform;
 
                 }
-                else
+                else if(this.transform.parent != null)
                 {
-                    if (preParent != null)
-                    {
-                        //Debug.Log("setting parent to " + preParent);
-                        this.transform.parent = preParent.transform;
-                    }
-                    else
-                    {
-                        this.transform.parent = null;
-                    }
+                    this.transform.parent = null;
                 }
             }
+        }
+
+        if(grip <= 0.5)
+        {
+            if (preParent != null)
+            {
+                //Debug.Log("setting parent to " + preParent);
+                this.transform.parent = preParent.transform;
+
+            }
+            else if (this.transform.parent != null)
+            {
+                this.transform.parent = null;
+            }
+
         }
 
     }
 
     private void FixedUpdate()
     {
- 
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         XRController controller = other.GetComponent<XRController>();
         //if the collider is a hand controller
-        if (controller != null && (controller.controllerNode == XRNode.LeftHand))
+        if (controller != null)
         {
-            leftHand = other.transform.gameObject;
-            //Debug.Log("Enter");
-        }
+            if ((controller.controllerNode == XRNode.RightHand))
+            {
+                GameObject travel = preParent;
+                while (travel != null)
+                {
+                    travel.layer = 3;
+                    travel = travel.GetComponent<grabPoint>().preParent;
+                }
 
-        if (controller != null && (controller.controllerNode == XRNode.RightHand))
-        {
-            rightHand = other.transform.gameObject;
-            //Debug.Log("Enter");
+
+                rightHand = other.transform.gameObject;
+                //Debug.Log("Enter");
+
+            }
+
         }
 
     }
@@ -81,17 +102,36 @@ public class grabPoint : MonoBehaviour
     {
         XRController controller = other.GetComponent<XRController>();
         //if the collider is a hand controller
-        if (controller != null && (controller.controllerNode == XRNode.LeftHand))
+        if (controller != null)
         {
-            leftHand = null;
-            //Debug.Log("Exit");
+            if ((controller.controllerNode == XRNode.RightHand))
+            {
+                rightHand = null;
+                //Debug.Log("Exit");
+                GameObject travel = preParent;
+                while (travel != null)
+                {
+                    travel.layer = 0;
+                    travel = travel.GetComponent<grabPoint>().preParent;
+                }
+
+            }
+
         }
-        if (controller != null && (controller.controllerNode == XRNode.RightHand))
+
+        if (other.tag == "Player")//if the user camera is in the box
         {
-            rightHand = null;
-            //Debug.Log("Exit");
+            Debug.Log("outside" + this.gameObject);
+            inside = false;
+
+            if (this.transform.parent == null)
+            {
+                GameObject root = Instantiate(workSpacePrefab, other.transform.position, other.transform.rotation);
+                preParent = root;
+            }
         }
 
     }
-
 }
+
+
