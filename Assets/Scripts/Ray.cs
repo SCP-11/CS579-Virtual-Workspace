@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class Ray : MonoBehaviour
 {
     public int range;
     public GameObject pointer;
     public LayerMask mask = new LayerMask();
-    public float scale = 100; 
+    public float scale = 100;
+    public float min;
+    public SteamVR_Action_Boolean buttonA;
+    public SteamVR_Action_Boolean buttonB;
 
     private float distance;
     private Color rayColor;
@@ -50,6 +55,7 @@ public class Ray : MonoBehaviour
             targetInstance.transform.position = hit.point;
             target = hit.transform.gameObject;
             //Debug.Log("Did Hit");
+            targetInstance.SetActive(distance > min);
         }
         else
         {
@@ -65,6 +71,8 @@ public class Ray : MonoBehaviour
 
         if (target != null) 
         {
+            /**XR controller
+             * 
             if(joystick.y > 0.5)
             {
                 target.transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime;
@@ -75,6 +83,20 @@ public class Ray : MonoBehaviour
                     target.transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime;
                 }
             }
+            */
+
+            if (buttonA.state)
+            {
+                target.transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime;
+            }
+            else if (buttonB.state)
+            {
+                if (target.transform.localScale.x > 0.05 && target.transform.localScale.y > 0.05 && target.transform.localScale.z > 0.05)
+                {
+                    target.transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime;
+                }
+            }
+
         }
     }
 }
