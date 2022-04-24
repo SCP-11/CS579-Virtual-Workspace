@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Valve.VR.Extras;
-using uDesktopDuplication;
 using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using uWindowCapture;
 
 
 class MouseController {
@@ -26,6 +26,16 @@ class MouseController {
     private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
     private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
+    // Top Most 
+    [DllImport("user32.dll")] 
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+    private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+    private const UInt32 SWP_NOSIZE = 0x0001;
+    private const UInt32 SWP_NOMOVE = 0x0002;
+    private const UInt32 TOPMOST_FLAGS = SWP_NOMOVE | SWP_NOSIZE;
+
 
     //This simulates a left mouse click
     public static void LeftMouseClick(int xpos, int ypos)
@@ -40,6 +50,11 @@ class MouseController {
         SetCursorPos(xpos, ypos);
         mouse_event(MOUSEEVENTF_RIGHTDOWN, xpos, ypos, 0, 0);
         mouse_event(MOUSEEVENTF_RIGHTUP, xpos, ypos, 0, 0);
+    }
+
+    public static void MakeTopMost(IntPtr hWnd)
+    {
+        SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
     }
 }
 
@@ -57,15 +72,23 @@ public class SceneHandler : MonoBehaviour
         leftLaserPointer.PointerClick += LeftPointerClick;
         rightLaserPointer.PointerClick += RightPointerClick;
     }
+    
 
     public void LeftPointerClick(object sender, PointerEventArgs e)
     {   
         // Target
         var target = e.target.gameObject;
 
-        if(target.name != "Monitor Board")
+        // get uWindowCapture object
+        var uWindowTexture = target.GetComponent<UwcWindowTexture>();
+        if (uWindowTexture == null)
+        {
+            Debug.Log("No uWindowTexture component found on " + target.name);
             return;
-            
+        }
+
+        var uWindow = uWindowTexture.window;
+
         // Dimensions of target
         Vector2 size = target.GetComponent<MeshRenderer>().bounds.size;
 
@@ -82,16 +105,16 @@ public class SceneHandler : MonoBehaviour
         // Need to invert the y axis
         actualClickPoint.y = size.y - actualClickPoint.y;
         
-        uDesktopDuplication.Texture uddTexture = GameObject.FindObjectsOfType<uDesktopDuplication.Texture>()[0];
-        var monitor = uddTexture.monitor;
-        var clickX = (int)(actualClickPoint.x/size.x * monitor.width);
-        var clickY = (int)(actualClickPoint.y/size.y * monitor.height);
-        
+        // uDesktopDuplication.Texture uddTexture = GameObject.FindObjectsOfType<uDesktopDuplication.Texture>()[0];
+        // var monitor = uddTexture.monitor;
+        var clickX = (int)(actualClickPoint.x/size.x * uWindow.width) + uWindow.x;
+        var clickY = (int)(actualClickPoint.y/size.y * uWindow.height) + uWindow.y;
         var clickLocationStr = "(x:" + clickX + ", y:" + clickY + ")";
-        var mouseLocationStr = "(x:" + monitor.cursorX + ", y:" + monitor.cursorY  + ")";
         
-        Debug.Log("Clicked on " + target.name + " at: " + clickLocationStr);
-        Debug.Log("Mouse Location: " + mouseLocationStr);
+        Debug.Log("Left Pointer Clicked on " + uWindow.title + " at: " + clickLocationStr);
+
+        Debug.Log("Window handle: " + uWindow.handle);
+        MouseController.MakeTopMost(uWindow.handle);
         MouseController.LeftMouseClick(clickX, clickY);
     }
 
@@ -100,9 +123,16 @@ public class SceneHandler : MonoBehaviour
         // Target
         var target = e.target.gameObject;
 
-        if(target.name != "Monitor Board")
+        // get uWindowCapture object
+        var uWindowTexture = target.GetComponent<UwcWindowTexture>();
+        if (uWindowTexture == null)
+        {
+            Debug.Log("No uWindowTexture component found on " + target.name);
             return;
-            
+        }
+
+        var uWindow = uWindowTexture.window;
+
         // Dimensions of target
         Vector2 size = target.GetComponent<MeshRenderer>().bounds.size;
 
@@ -119,16 +149,15 @@ public class SceneHandler : MonoBehaviour
         // Need to invert the y axis
         actualClickPoint.y = size.y - actualClickPoint.y;
         
-        uDesktopDuplication.Texture uddTexture = GameObject.FindObjectsOfType<uDesktopDuplication.Texture>()[0];
-        var monitor = uddTexture.monitor;
-        var clickX = (int)(actualClickPoint.x/size.x * monitor.width);
-        var clickY = (int)(actualClickPoint.y/size.y * monitor.height);
-        
+        // uDesktopDuplication.Texture uddTexture = GameObject.FindObjectsOfType<uDesktopDuplication.Texture>()[0];
+        // var monitor = uddTexture.monitor;
+        var clickX = (int)(actualClickPoint.x/size.x * uWindow.width) + uWindow.x;
+        var clickY = (int)(actualClickPoint.y/size.y * uWindow.height) + uWindow.y;
         var clickLocationStr = "(x:" + clickX + ", y:" + clickY + ")";
-        var mouseLocationStr = "(x:" + monitor.cursorX + ", y:" + monitor.cursorY  + ")";
         
-        Debug.Log("Clicked on " + target.name + " at: " + clickLocationStr);
-        Debug.Log("Mouse Location: " + mouseLocationStr);
+        Debug.Log("Right Pointer Clicked on " + uWindow.title + " at: " + clickLocationStr);
+
+        MouseController.MakeTopMost(uWindow.handle);
         MouseController.RightMouseClick(clickX, clickY);
     }
 }
