@@ -8,55 +8,62 @@ public class UwcHorizontalLayouter : MonoBehaviour
 {
     UwcWindowTextureManager manager_;
 
-    [SerializeField] 
-    [Tooltip("meter / 1000 pixel")]
-    float scale = 1f;
-
-    Vector3 globalPos = Vector3.zero;
-
     void Awake()
     {
         manager_ = GetComponent<UwcWindowTextureManager>();
         manager_.onWindowTextureAdded.AddListener(InitWindow);
-
-        var cube = GameObject.Find("Cube");
-        if (cube != null)
-        {
-            var cubeSize = cube.GetComponent<MeshRenderer>().bounds.size;
-            var cubePos = cube.transform.localPosition;
-            Debug.Log("cubePos: " + cubePos);
-            Debug.Log("cubeSize: " + cubeSize);
-        }
     }
 
     void InitWindow(UwcWindowTexture windowTexture)
     {
-        // var xRange = 1.5f;
-        // var yRange = 1.5f;
-        // var zRange = 0.5f;
-        // var randomVector = new Vector3(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange), Random.Range(-zRange, zRange));
-        // windowTexture.transform.localPosition = randomVector;
-        // ScaleWindow(windowTexture, false);
+    }
+
+    Bounds GetMaxBounds(GameObject g) {
+        var renderers = g.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0) return new Bounds(g.transform.position, Vector3.zero);
+        var b = renderers[0].bounds;
+        foreach (Renderer r in renderers) {
+            b.Encapsulate(r.bounds);
+        }
+        return b;
     }
 
     void Update()
     {
         var pos = Vector3.zero;
-
+        var currentWidth = 0f;
+        var maxWidth = 3 * Lib.GetScreenWidth();
 
         foreach (var kv in manager_.windows) {
             var windowTexture = kv.Value;
             var width = windowTexture.transform.localScale.x;
-            pos += new Vector3(width * 0.5f, 0f, 0f);
-            windowTexture.transform.localPosition = pos;
-            pos += new Vector3(width * 0.7f, 0f, 0f);
-        }
-    }
+            var height = windowTexture.transform.localScale.y;
 
-    void ScaleWindow(UwcWindowTexture windowTexture, bool useFilter)
-    {
-        windowTexture.scaleControlType = WindowTextureScaleControlType.BaseScale;
-        windowTexture.scalePer1000Pixel = scale;
+            currentWidth += windowTexture.window.width;
+            bool isMaxWidth = currentWidth > maxWidth;
+            var newPos = new Vector3(pos.x + width * 0.5f, pos.y, pos.z);
+            if (isMaxWidth) {
+                newPos.x = width * 0.5f;
+                newPos.y += height * 1.2f;
+                currentWidth = 0f;
+            }
+
+            windowTexture.transform.localPosition = newPos;
+            newPos.x += width * 0.7f;
+            pos = newPos;
+        }
+
+        var windows = GameObject.Find("Windows");
+        if (windows != null)
+        {
+            var bounds = GetMaxBounds(windows);
+            var cube = GameObject.Find("Cube");
+            if (cube != null)
+            {
+                cube.transform.position = bounds.center + new Vector3(-0.02f, -0.02f, 0.1f);
+                cube.transform.localScale = bounds.size + new Vector3(0.2f, 0.2f, 0.1f);
+            }
+        }
     }
 
 }
