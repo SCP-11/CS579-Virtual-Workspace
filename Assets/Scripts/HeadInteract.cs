@@ -7,6 +7,7 @@ public class HeadInteract : MonoBehaviour
     //private GameObject[] touchingObjects;
     public GameObject workSpacePrefab;
     public GameObject rightHand;
+    public GameObject floor;
 
     private rightHand rightHandScript;
     // Start is called before the first frame update

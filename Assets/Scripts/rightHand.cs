@@ -16,6 +16,7 @@ public class rightHand : MonoBehaviour
     private float grip;
     public Transform preParent;
     private GameObject holdingObject;
+    private GameObject container;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,19 +61,37 @@ public class rightHand : MonoBehaviour
             if (holdingObject == null && touchingObjects.Count != 0)
             {
                 holdingObject = touchingObjects[touchingObjects.Count - 1];
-                preParent = touchingObjects[touchingObjects.Count - 1].transform.parent;
-                touchingObjects[touchingObjects.Count - 1].transform.parent = this.transform;
+                preParent = holdingObject.transform.parent;
+                holdingObject.transform.parent = this.transform;
                 Debug.Log("Grabing");
             }
         }
         else
         {
-            if (holdingObject != null && touchingObjects.Count != 0)
+            if (holdingObject != null)
             {
-                holdingObject.transform.parent = preParent;
+                if (container != null && !Object.ReferenceEquals(holdingObject, container.transform.parent.gameObject))
+                {
+                    //Vector3 containerSize = container.GetComponent<Collider>().bounds.size;
+                    //Vector3 holdingSize = holdingObject.GetComponent<Collider>().bounds.size;
+
+                    //float relativeSize = containerSize.magnitude / holdingSize.magnitude;
+                    holdingObject.transform.parent = container.transform;
+                    holdingObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
+                    //holdingObject.transform.localScale = new Vector3(relativeSize, relativeSize, relativeSize); 
+                    Debug.Log("contained");
+
+                }
+                else
+                {
+                    Debug.Log("holdingObject: " + holdingObject.ToString());
+                    //Debug.Log("preParent: "+preParent);
+                    holdingObject.transform.parent = preParent;
+                    Debug.Log("released");
+                }
+                //container = null;
                 preParent = null;
                 holdingObject = null;
-                Debug.Log("released");
             }
         }
 
@@ -80,10 +99,14 @@ public class rightHand : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //if the collider is a hand controller
-        if (other.tag == "type1")
+        if (other.tag == "type1" && holdingObject == null)
         {
             touchingObjects.Add(other.gameObject);
             Debug.Log(touchingObjects.Count);
+        }
+        if(other.GetComponent<Container>() != null) 
+        {
+            container = other.gameObject;
         }
 
     }
@@ -102,6 +125,12 @@ public class rightHand : MonoBehaviour
             touchingObjects.Remove(other.gameObject);
             Debug.Log(touchingObjects.Count);
         }
+        if (other.GetComponent<Container>() != null)
+        {
+            container = null;
+        }
+
+
     }
 
 }

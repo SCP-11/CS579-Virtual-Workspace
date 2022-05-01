@@ -69,7 +69,7 @@ public class Ray : MonoBehaviour
         }
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * distance, rayColor);
 
-        if (target != null) 
+        if (target != null && target.tag == "type1") 
         {
             /**XR controller
              * 
@@ -88,12 +88,17 @@ public class Ray : MonoBehaviour
             if (buttonA.state)
             {
                 target.transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime;
+                Vector3 relative = target.transform.position - this.transform.position;
+                target.transform.position += relative/relative.magnitude * Time.deltaTime;
             }
             else if (buttonB.state)
             {
                 if (target.transform.localScale.x > 0.05 && target.transform.localScale.y > 0.05 && target.transform.localScale.z > 0.05)
                 {
                     target.transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime;
+                    Vector3 relative = this.transform.position - target.transform.position;
+
+                    target.transform.position += relative / relative.magnitude * Time.deltaTime;
                 }
             }
 
