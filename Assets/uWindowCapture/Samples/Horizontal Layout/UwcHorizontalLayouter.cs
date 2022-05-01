@@ -57,11 +57,11 @@ public class UwcHorizontalLayouter : MonoBehaviour
         if (windows != null)
         {
             var bounds = GetMaxBounds(windows);
-            var cube = GameObject.Find("Cube");
-            if (cube != null)
+            var backDrop = GameObject.Find("WindowsBackdrop");
+            if (backDrop != null)
             {
-                cube.transform.position = bounds.center + new Vector3(-0.02f, -0.02f, 0.1f);
-                cube.transform.localScale = bounds.size + new Vector3(0.2f, 0.2f, 0.1f);
+                backDrop.transform.position = bounds.center + new Vector3(-0.02f, -0.02f, 0.1f);
+                backDrop.transform.localScale = bounds.size + new Vector3(5.25f, 3.25f, 0.12f);
             }
         }
     }
