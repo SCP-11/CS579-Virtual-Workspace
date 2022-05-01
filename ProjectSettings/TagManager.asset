@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grab
   - type1
+  - monitor
   layers:
   - Default
   - TransparentFX

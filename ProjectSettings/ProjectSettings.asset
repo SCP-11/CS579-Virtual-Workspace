@@ -160,6 +160,8 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: a727925a15c312e489a259eac8c86012, type: 2}
+  - {fileID: -3797040358752683331, guid: c8a3a03d08b8fa04ea73f55fa1074cf9, type: 2}
+  - {fileID: 2203645486071344451, guid: 81c7d6e21754b6841b8bf242d9af71ec, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -178,6 +180,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.VirtualWorkspace
+    Standalone: com.DefaultCompany.VirtualWorkspace
   buildNumber:
     Standalone: 0
     iPhone: 0
