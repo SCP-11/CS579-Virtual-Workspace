@@ -21,10 +21,12 @@ public class Ray : MonoBehaviour
     private GameObject targetInstance;
     private Vector2 joystick;
     private GameObject target;
+    private rightHand rightHand;
     // Start is called before the first frame update
     void Start()
     {
         targetInstance = Instantiate(pointer, this.transform.position + this.transform.forward * distance, new Quaternion(0,0,0, 0));
+        rightHand = this.transform.parent.GetComponentInChildren<rightHand>();
     }
 
     // Update is called once per frame
@@ -69,7 +71,7 @@ public class Ray : MonoBehaviour
         }
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * distance, rayColor);
 
-        if (target != null && target.tag == "type1") 
+        if (target != null && target.tag == "type1" && rightHand.holdingObject == null) 
         {
             /**XR controller
              * 

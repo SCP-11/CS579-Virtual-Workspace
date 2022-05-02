@@ -15,7 +15,7 @@ public class rightHand : MonoBehaviour
     private XRController xrController;
     private float grip;
     public Transform preParent;
-    private GameObject holdingObject;
+    public GameObject holdingObject;
     private GameObject container;
     // Start is called before the first frame update
     void Start()
@@ -109,6 +109,11 @@ public class rightHand : MonoBehaviour
             container = other.gameObject;
         }
 
+        if (other.GetComponent<Pen>() != null)
+        {
+            other.GetComponent<Pen>().activate = true;
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -130,6 +135,10 @@ public class rightHand : MonoBehaviour
             container = null;
         }
 
+        if (other.GetComponent<Pen>() != null)
+        {
+            other.GetComponent<Pen>().activate = false;
+        }
 
     }
 
