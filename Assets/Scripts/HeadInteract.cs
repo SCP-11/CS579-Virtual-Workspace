@@ -35,7 +35,7 @@ public class HeadInteract : MonoBehaviour
 
             if (other.gameObject.transform.parent == null)
             {
-                GameObject root = Instantiate(workSpacePrefab, this.transform.position, this.transform.rotation);
+                GameObject root = Instantiate(workSpacePrefab, new Vector3(0,0,0), new Quaternion (0,0,0,0));
                 other.transform.parent = root.transform;
             }
 
