@@ -283,7 +283,7 @@ MonoBehaviour:
   childWindowZDistance: 0.02
   partialWindowTitle_: Unity
   desktopIndex_: 0
-  captureMode: 3
+  captureMode: 1
   capturePriority: -1
   captureRequestTiming: 1
   captureFrameRate: 60

@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.virtualworkspace.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Drago\\Documents\\GitHub\\Virtual Workspace\\CS579-Virtual-Workspace\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\sarthi@wisc.edu\\CS579-Virtual-Workspace\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "VirtualWorkspace [Testing]"

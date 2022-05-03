@@ -117,7 +117,7 @@ MonoBehaviour:
   childWindowZDistance: 0.02
   partialWindowTitle_: 
   desktopIndex_: 0
-  captureMode: 3
+  captureMode: 0
   capturePriority: 0
   captureRequestTiming: 1
   captureFrameRate: -1

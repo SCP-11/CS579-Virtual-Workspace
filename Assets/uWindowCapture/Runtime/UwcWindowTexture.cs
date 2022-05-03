@@ -128,7 +128,7 @@ public class UwcWindowTexture : MonoBehaviour
         }
     }
 
-    public CaptureMode captureMode = CaptureMode.Auto;
+    public CaptureMode captureMode = CaptureMode.PrintWindow;
     public CapturePriority capturePriority = CapturePriority.Auto;
     public WindowTextureCaptureTiming captureRequestTiming = WindowTextureCaptureTiming.OnlyWhenVisible;
     public int captureFrameRate = 30;

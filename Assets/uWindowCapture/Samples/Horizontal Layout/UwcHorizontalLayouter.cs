@@ -32,7 +32,14 @@ public class UwcHorizontalLayouter : MonoBehaviour
     {
         var pos = Vector3.zero;
         var currentWidth = 0f;
-        var maxWidth = 3 * Lib.GetScreenWidth();
+        var totalWidth = 0f;
+
+        foreach (var kv in manager_.windows) {
+            var windowTexture = kv.Value;
+            totalWidth += windowTexture.window.width;
+        }
+
+        var maxWidth = totalWidth;
 
         foreach (var kv in manager_.windows) {
             var windowTexture = kv.Value;
@@ -44,7 +51,7 @@ public class UwcHorizontalLayouter : MonoBehaviour
             var newPos = new Vector3(pos.x + width * 0.5f, pos.y, pos.z);
             if (isMaxWidth) {
                 newPos.x = width * 0.5f;
-                newPos.y += height * 1.2f;
+                newPos.y += height * 1.25f;
                 currentWidth = 0f;
             }
 
@@ -61,7 +68,7 @@ public class UwcHorizontalLayouter : MonoBehaviour
             if (backDrop != null)
             {
                 backDrop.transform.position = bounds.center + new Vector3(-0.02f, -0.02f, 0.1f);
-                backDrop.transform.localScale = bounds.size + new Vector3(5.25f, 3.25f, 0.12f);
+                backDrop.transform.localScale = bounds.size + new Vector3(12.3f, 3.2f, 0.12f);
             }
         }
     }
