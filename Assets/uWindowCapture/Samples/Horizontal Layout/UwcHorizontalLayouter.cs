@@ -68,7 +68,7 @@ public class UwcHorizontalLayouter : MonoBehaviour
             if (backDrop != null)
             {
                 backDrop.transform.position = bounds.center + new Vector3(-0.02f, -0.02f, 0.1f);
-                backDrop.transform.localScale = bounds.size + new Vector3(12.3f, 3.2f, 0.12f);
+                backDrop.transform.localScale = bounds.size + new Vector3(11.3f, 2.2f, 0.12f);
             }
         }
     }
